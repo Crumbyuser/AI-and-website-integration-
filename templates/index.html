@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>NHS AI Assistant</title>
+        <link rel="stylesheet" href="/static/stylesheet.css">
+        
+    </head>
+    <body>
+        <!-- Copy your header from Main.html -->
+        <header class="main-header">
+            <div class="top-bar">
+                <a href="Main.html"><img src="/Images/NHS-800x450.png" alt="NHS Logo" class="logo"></a>
+                <h1 class="site-title">Welcome to the Fake NHS</h1>
+                <div class="search-container">
+                    <input type="text" placeholder="Search..." class="search-input">
+                    <button class="search-button">Search</button>
+                </div>
+            </div>
+    
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Health A-Z</a></li>
+                    <li><a href="#about" class="nav-link">Live Well</a></li>
+                    <li><a href="#contact" class="nav-link">Mental Health</a></li>
+                    <li><a href="#contact" class="nav-link">Care and Support</a></li>
+                    <li><a href="#contact" class="nav-link">Pregnancy</a></li>
+                    <li><a href="#contact" class="nav-link">NHS Services</a></li>
+                </ul>
+            </nav>
+        </header>
+       
+        
+<body>
+    <h1>Telemedicine Chatbot</h1>
+    <div id="chatbox">
+        <div id="messages"></div>
+    </div>
+    <div id="inputbox">
+        <input type="text" id="userInput" placeholder="Type your message here..." />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        document.getElementById('userInput').addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent the default action (form submission)
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const inputField = document.getElementById('userInput');
+            const message = inputField.value;
+            if (message.trim() === '') return; // Don't send empty messages
+
+            // Display the user's message
+            const messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML += `<div>User: ${message}</div>`;
+            inputField.value = ''; // Clear the input field
+
+            // Send the message to the server
+            fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: message }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                messagesDiv.innerHTML += `<div>Chat Bot: ${data.response}</div>`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
