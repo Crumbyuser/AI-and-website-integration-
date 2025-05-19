@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 import os
 
-OPEN_AI_API_KEY="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"
+OPEN_AI_API_KEY=""
 print("running")
 
 if OPEN_AI_API_KEY:
