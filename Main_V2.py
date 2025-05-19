@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import google.generativeai as genai
 import os
 
-GOOGLE_API_KEY="AIzaSyBa9vYDPkVIJpEGuurvS-VMHdZZtypLl4U"
+GOOGLE_API_KEY=""
 print("running")
 
 if GOOGLE_API_KEY:
